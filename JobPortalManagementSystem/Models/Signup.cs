@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +9,8 @@ namespace JobPortalManagementSystem.Models
 {
     public class Signup
     {
+        internal int id;
+
         public int Id { get; set; }
 
         [Display(Name = "First name")]
@@ -25,9 +27,8 @@ namespace JobPortalManagementSystem.Models
         public DateTime dateOfBirth { get; set; }
 
         [Display(Name = "Gender")]
-        [StringLength(1, MinimumLength = 1, ErrorMessage = "Gender must be a single character.")]
         [Required(ErrorMessage = "Please enter your gender.")]
-        public char gender { get; set; }
+        public String gender { get; set; }
 
         [Display(Name = "Email Address")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
@@ -66,7 +67,7 @@ namespace JobPortalManagementSystem.Models
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter your password.")]
-        public byte[] password { get; set; }
+        public string password { get; set; }
 
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -75,4 +76,61 @@ namespace JobPortalManagementSystem.Models
         public string confirmPassword { get; set; }
     }
 
+}*/
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace JobPortalManagementSystem.Models
+{
+    public class Signup
+    {
+        public int id { get; set; }
+        [DisplayName("First name")]
+        public string firstName { get; set; }
+        [DisplayName("Last name")]
+        public string lastName { get; set; }
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please enter your date of birth.")]
+        public DateTime dateOfBirth { get; set; }
+        [DisplayName("Gender")]
+        [Required(ErrorMessage = "Gender is required")]
+        public string gender { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [DisplayName("Email")]
+        public string email { get; set; }
+        [Required(ErrorMessage = "Phone number is required")]
+        [DisplayName("Phone")]
+        public string phone { get; set; }
+        [Required(ErrorMessage = "Address is required")]
+        [DisplayName("Address")]
+        public string address { get; set; }
+        [Required(ErrorMessage = "Select the city")]
+        [DisplayName("City")]
+        public string city { get; set; }
+        [Required(ErrorMessage = "Select the state")]
+        [DisplayName("State")]
+        public string state { get; set; }
+        [Required(ErrorMessage = "Pincode is required")]
+        [DisplayName("Pincode")]
+        public int pincode { get; set; }
+        [Required(ErrorMessage = "Select the country")]
+        [DisplayName("Country")]
+        public string country { get; set; }
+        [Required(ErrorMessage = "Username is required")]
+        [DisplayName("Username")]
+        public string username { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        [DisplayName("Password")]
+        public string password { get; set; }
+        [Required(ErrorMessage = "Re-enter the password")]
+        [DisplayName("Confirm password")]
+        public string confirmPassword { get; set; }
+    }
+  
 }
