@@ -103,10 +103,23 @@ using System.Web.Mvc;
 namespace JobPortalManagementSystem.Controllers
 {
     public class HomeController : Controller
-    {/// <summary>
-     /// Control view record page
-     /// </summary>
-     /// <returns></returns>
+    {
+        public ActionResult Homepage()
+        {
+            
+            return View();
+        }
+        public ActionResult HomeLayoutpage()
+        {
+
+            return View();
+        }
+
+
+        /// <summary>
+        /// Control view record page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetDetails()
         {
             SignupRepository signupRepository = new SignupRepository();
