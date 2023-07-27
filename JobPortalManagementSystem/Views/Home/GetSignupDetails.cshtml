@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<JobPortalManagementSystem.Models.Signup>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Home/HomeLayoutpage.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>GetDetails</title>
+    <title>GetSignupDetails</title>
 </head>
 <body>
     <p>
@@ -107,9 +107,9 @@
                 @Html.DisplayFor(modelItem => item.confirmPassword)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                @Html.ActionLink("Edit", "EditSignupDetails", new { Id=item.Id }) |
+                @Html.ActionLink("Details", "DeleteSignupDetails", new { Id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { Id=item.Id })
             </td>
         </tr>
     }

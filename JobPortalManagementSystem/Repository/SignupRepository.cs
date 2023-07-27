@@ -202,7 +202,7 @@ namespace JobPortalManagementSystem.Repository
         /// </summary>
         /// <param name="signup"></param>
         /// <returns></returns>
-        public bool AddDetails(Signup signup)
+        public bool AddSignupDetails(Signup signup)
         {
             Connection();
             SqlCommand command = new SqlCommand("SPI_Signup", connection);
@@ -237,7 +237,7 @@ namespace JobPortalManagementSystem.Repository
         /// Viewing the database signup record
         /// </summary>
         /// <returns></returns>
-        public List<Signup> GetDetails()
+        public List<Signup> GetSignupDetails()
         {
             Connection();
             List<Signup> SignupList = new List<Signup>();
@@ -253,7 +253,7 @@ namespace JobPortalManagementSystem.Repository
                 SignupList.Add(
                     new Signup
                     {
-                        id = Convert.ToInt32(datarow["Id"]),
+                        Id = Convert.ToInt32(datarow["Id"]),
                         firstName = Convert.ToString(datarow["firstName"]),
                         lastName = Convert.ToString(datarow["lastName"]),
                         dateOfBirth = Convert.ToDateTime(datarow["dateOfBirth"]),
@@ -275,11 +275,13 @@ namespace JobPortalManagementSystem.Repository
         /// </summary>
         /// <param name="signup"></param>
         /// <returns></returns>
-        public bool EditDetails(Signup signup)
+        public bool EditSignupDetails(Signup signup)
         {
             Connection();
             SqlCommand command = new SqlCommand("SPU_Signup", connection);
             command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Id", signup.Id);
+
             command.Parameters.AddWithValue("@firstName", signup.firstName);
             command.Parameters.AddWithValue("@lastName", signup.lastName);
             command.Parameters.AddWithValue("@dateOfBirth", signup.dateOfBirth);
@@ -310,12 +312,12 @@ namespace JobPortalManagementSystem.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool DeleteDetails(int id)
+        public bool DeleteSignupDetails(int Id)
         {
             Connection();
             SqlCommand command = new SqlCommand("SPD_Signup", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@Id", Id);
             connection.Open();
             int i = command.ExecuteNonQuery();
             connection.Close();
@@ -328,5 +330,24 @@ namespace JobPortalManagementSystem.Repository
                 return false;
             }
         }
+
+
+          // Method to validate user login credentials
+    public bool ValidateUser(string username, string password)
+    {
+        Connection();
+        SqlCommand command = new SqlCommand("SPS_ValidateUser", connection);
+        command.CommandType = CommandType.StoredProcedure;
+        command.Parameters.AddWithValue("@username", username);
+        string hashedPassword = HashPassword(password);
+        command.Parameters.AddWithValue("@password", hashedPassword);
+
+        connection.Open();
+        int result = Convert.ToInt32(command.ExecuteScalar());
+        connection.Close();
+
+        return result > 0;
+
+    }
     }
 }

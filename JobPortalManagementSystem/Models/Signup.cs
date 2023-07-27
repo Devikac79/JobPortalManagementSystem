@@ -89,7 +89,7 @@ namespace JobPortalManagementSystem.Models
 {
     public class Signup
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         [DisplayName("First name")]
         public string firstName { get; set; }
         [DisplayName("Last name")]
@@ -131,6 +131,8 @@ namespace JobPortalManagementSystem.Models
         [Required(ErrorMessage = "Re-enter the password")]
         [DisplayName("Confirm password")]
         public string confirmPassword { get; set; }
+
+       
     }
   
 }

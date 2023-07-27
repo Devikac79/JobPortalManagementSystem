@@ -106,7 +106,7 @@ namespace JobPortalManagementSystem.Controllers
     {
         public ActionResult Homepage()
         {
-            
+
             return View();
         }
         public ActionResult HomeLayoutpage()
@@ -120,17 +120,17 @@ namespace JobPortalManagementSystem.Controllers
         /// Control view record page
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetDetails()
+        public ActionResult GetSignupDetails()
         {
             SignupRepository signupRepository = new SignupRepository();
             ModelState.Clear();
-            return View(signupRepository.GetDetails());
+            return View(signupRepository.GetSignupDetails());
         }
         /// <summary>
         /// Get method to view Creating  a record
         /// </summary>
         /// <returns></returns>
-        public ActionResult AddDetails()
+        public ActionResult AddSignupDetails()
         {
             return View();
         }
@@ -140,48 +140,61 @@ namespace JobPortalManagementSystem.Controllers
         /// <param name="signup"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult AddDetails(Signup signup)
+        public ActionResult AddSignupDetails(Signup signup)
         {
             try
             {
+
                 if (ModelState.IsValid)
                 {
-                    SignupRepository signupRepository = new SignupRepository();
-                    if (signupRepository.AddDetails(signup))
+                   SignupRepository signupRepository = new SignupRepository();
+                    if (signupRepository.AddSignupDetails(signup))
                     {
-                        ViewBag.Message = "User Details Added Successfully";
+                        ViewBag.Message = "User Registration Successful";
+                        return RedirectToAction("Login"); // Redirect to login page after successful registration
                     }
                 }
-                return RedirectToAction("GetDetails");
+                return View(signup);
             }
             catch
             {
                 return View();
             }
         }
-        /// <summary>
-        /// Get method to view selected record details
+
+
+
+
+
+
+
+
+
+
+        /// View the details of a selected signup record for editing.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public ActionResult EditDetails(int? id)
+        public ActionResult EditSignupDetails(int? Id)
         {
             SignupRepository signupRepository = new SignupRepository();
-            return View();
+            return View(signupRepository.GetSignupDetails().Find(signup => signup.Id == Id));
         }
+
         /// <summary>
-        /// Editing the record
+        /// Edit the signup record.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="Id"></param>
         /// <param name="signup"></param>
         /// <returns></returns>
-        public ActionResult EditDetails(int? id, Signup signup)
+        [HttpPost]
+        public ActionResult EditSignupDetails(int? Id, Signup signup)
         {
             try
             {
                 SignupRepository signupRepository = new SignupRepository();
-                signupRepository.EditDetails(signup);
-                return RedirectToAction("GetDetails");
+                signupRepository.EditSignupDetails(signup);
+                return RedirectToAction("GetSignupDetails");
             }
             catch
             {
@@ -191,24 +204,82 @@ namespace JobPortalManagementSystem.Controllers
         /// <summary>
         /// Deleting the record
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="Id"></param>
         /// <param name="signup"></param>
         /// <returns></returns>
-        public ActionResult DeleteDetails(int id, Signup signup)
+        public ActionResult DeleteSignupDetails(int Id, Signup signup)
         {
             try
             {
                 SignupRepository signupRepository = new SignupRepository();
-                if (signupRepository.DeleteDetails(id))
+                if (signupRepository.DeleteSignupDetails(Id))
                 {
                     ViewBag.AlertMessage("User details deleted successfully");
                 }
-                return RedirectToAction("GetDetails");
+                return RedirectToAction("GetSignupDetails");
             }
             catch
             {
                 return View();
             }
         }
+
+
+
+
+
+
+        // GET: Login
+        public ActionResult Signin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Signin(Signin signin)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    SignupRepository signupRepository = new SignupRepository();
+                    bool isValidUser = signupRepository.ValidateUser(signin.Username, signin.Password);
+                    if (isValidUser)
+                    {
+                        // User is authenticated, you can add code to set authentication cookies or session variables
+                        ViewBag.Message = "Login successful";
+                        return RedirectToAction("AdminHomepage", "Admin"); // Redirect to the home page after successful login
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Invalid username or password";
+                    }
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        /// <summary>
+        /// contact us page
+        /// </summary>
+        /// <returns></returns>
+
+        // GET: Contact
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
     }
 }
