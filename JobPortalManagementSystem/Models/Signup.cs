@@ -132,7 +132,11 @@ namespace JobPortalManagementSystem.Models
         [DisplayName("Confirm password")]
         public string confirmPassword { get; set; }
 
-       
+
+        public int countryId { get; set; }
+        public int stateId { get; set; }
+        public int cityId { get;set; }
+
     }
   
 }

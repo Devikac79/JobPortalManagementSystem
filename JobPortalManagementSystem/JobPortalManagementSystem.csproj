@@ -122,12 +122,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Signin.cs" />
     <Compile Include="Models\Signup.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\UserRegistrationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SignupRepository.cs" />
   </ItemGroup>
@@ -150,9 +155,12 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\CSS\StyleSheet1.css" />
     <Content Include="Content\CSS\Home.css" />
+    <Content Include="Content\Images\about.jpg" />
+    <Content Include="Content\Images\Home1.jpg" />
     <Content Include="Content\Images\Home.jpg" />
     <Content Include="Content\Images\Home2.jpeg" />
     <Content Include="Content\Images\Home3.jpg" />
+    <Content Include="Content\Images\support-img.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -196,6 +204,7 @@
     <Content Include="Views\Home\GetSignupDetails.cshtml" />
     <Content Include="Views\Home\EditSignupDetails.cshtml" />
     <Content Include="Views\Home\DeleteSignupDetails.cshtml" />
+    <Content Include="Views\Registration\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
