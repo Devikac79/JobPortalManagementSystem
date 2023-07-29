@@ -5,9 +5,9 @@ using System.Web;
 
 namespace JobPortalManagementSystem.Models
 {
-    public class Signin
+    public class Category
     {
-        public string username { get; set; }
-        public string password { get; set; }
+        public int Id { get; set; }
+        public string category{ get; set; }
     }
 }

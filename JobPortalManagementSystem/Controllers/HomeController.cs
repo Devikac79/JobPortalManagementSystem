@@ -1,93 +1,4 @@
-﻿/*
-using JobPortalManagementSystem.Repository;
-using JobPortalManagementSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace JobPortalManagementSystem.Controllers
-{
-    public class HomeController : Controller
-    {
-        public ActionResult GetDetails()
-        {
-            SignupRepository signupRepository = new SignupRepository();
-            ModelState.Clear();
-            return View(signupRepository.GetDetails());
-        }
-
-        public ActionResult AddDetails()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddDetails(Signup signup)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    SignupRepository signupRepository = new SignupRepository();
-                    if (signupRepository.AddDetails(signup))
-                    {
-                        ViewBag.Message = "USer details added successfully";
-                    }
-                }
-                return RedirectToAction("GetDetails");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-        public ActionResult EditDetails(int? Id)
-        {
-            SignupRepository signupRepository = new SignupRepository();
-            return View(signupRepository.GetDetails().Find(signup => signup.Id == Id));
-
-        }
-
-        [HttpPost]
-        public ActionResult EditDetails(int? Id,Signup signup)
-        {
-            try
-            {
-                SignupRepository signupRepository = new SignupRepository();
-                signupRepository.EditDetails(signup);
-                return RedirectToAction("GEtDetails");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-        public ActionResult DeleteDetails(int Id,Signup signup)
-        {
-            try
-            {
-                SignupRepository signupRepository = new SignupRepository();
-                if (signupRepository.DeleteDetails(Id))
-                {
-                    ViewBag.AlertMessage = "USer details deleted successfully";
-                }
-                return RedirectToAction("GetDetails");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-    }
-}*/
+﻿
 
 
 
@@ -151,7 +62,7 @@ namespace JobPortalManagementSystem.Controllers
                     if (signupRepository.AddSignupDetails(signup))
                     {
                         ViewBag.Message = "User Registration Successful";
-                        return RedirectToAction("Login"); // Redirect to login page after successful registration
+                        return RedirectToAction("Signin"); // Redirect to login page after successful registration
                     }
                 }
                 return View(signup);
@@ -235,6 +146,8 @@ namespace JobPortalManagementSystem.Controllers
             return View();
         }
 
+       
+
         [HttpPost]
         public ActionResult Signin(Signin signin)
         {
@@ -243,18 +156,23 @@ namespace JobPortalManagementSystem.Controllers
                 if (ModelState.IsValid)
                 {
                     SignupRepository signupRepository = new SignupRepository();
-                    bool isValidUser = signupRepository.ValidateUser(signin.Username, signin.Password);
-                    if (isValidUser)
+                    string role = signupRepository.GetUserRole(signin.username, signin.password);
+
+                    if (role == "user")
                     {
-                        // User is authenticated, you can add code to set authentication cookies or session variables
-                        ViewBag.Message = "Login successful";
-                        return RedirectToAction("AdminHomepage", "Admin"); // Redirect to the home page after successful login
+                        return RedirectToAction("Homepage", "Home");
+                       
+                    }
+                    else if (role == "admin")
+                    {
+                        return RedirectToAction("AdminHomepage", "Admin");
                     }
                     else
                     {
                         ViewBag.Message = "Invalid username or password";
                     }
                 }
+
                 return View();
             }
             catch
@@ -262,6 +180,7 @@ namespace JobPortalManagementSystem.Controllers
                 return View();
             }
         }
+
 
 
         /// <summary>

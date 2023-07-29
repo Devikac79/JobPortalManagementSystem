@@ -1,163 +1,4 @@
-﻿/*using JobPortalManagementSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-
-namespace JobPortalManagementSystem.Repository
-{
-    public class SignupRepository
-    {
-        private SqlConnection connection;
-
-        /// <summary>
-        /// Handle connection
-        /// </summary>
-        private void Connection()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["GetDatabaseConnection"].ToString();
-            connection = new SqlConnection(connectionString);
-        }
-        //Model name
-        public bool AddDetails(Signup signup)
-        {
-            Connection();
-            SqlCommand command = new SqlCommand("SPI_Signup", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@firstName", signup.firstName);
-            command.Parameters.AddWithValue("@lastName", signup.lastName);
-            command.Parameters.AddWithValue("@dateOfBirth", signup.dateOfBirth);
-            command.Parameters.AddWithValue("@gender", signup.gender);
-            command.Parameters.AddWithValue("@email", signup.email);
-            command.Parameters.AddWithValue("@phone", signup.phone);
-            command.Parameters.AddWithValue("@address", signup.address);
-            command.Parameters.AddWithValue("@state", signup.state);
-            command.Parameters.AddWithValue("@city", signup.city);
-
-            command.Parameters.AddWithValue("@pincode", signup.pincode);
-            command.Parameters.AddWithValue("@country", signup.country);
-            command.Parameters.AddWithValue("@username", signup.username);
-          
-            command.Parameters.AddWithValue("@password", signup.password);
-            connection.Open();
-            int i = command.ExecuteNonQuery();
-            connection.Close();
-            if (i > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public List<Signup> GetDetails()
-        {
-            Connection();
-            List<Signup> SignupList = new List<Signup>();
-            SqlCommand command = new SqlCommand("SPS_Signup", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable dataTable = new DataTable();
-            connection.Open();
-            adapter.Fill(dataTable);
-            connection.Close();
-
-
-            foreach (DataRow row in dataTable.Rows)
-                SignupList.Add(new Signup
-                {
-                    id= Convert.ToInt32(row["Id"]),
-                    firstName = Convert.ToString(row["firstName"]),
-                    lastName = Convert.ToString(row["lastName"]),
-                    dateOfBirth = Convert.ToDateTime(row["dateOfBirth"]),
-                    gender = Convert.ToString(row["gender"]),
-                    email = Convert.ToString(row["email"]),
-                    phone = Convert.ToString(row["phone"]),
-                    address = Convert.ToString(row["address"]),
-                   
-                    state = Convert.ToString(row["state"]),
-                    city = Convert.ToString(row["city"]),
-                    pincode = Convert.ToInt32(row["pincode"]),
-                    country = Convert.ToString(row["country"]),
-                    username = Convert.ToString(row["username"]),
-                    password = Convert.ToString(row["password"])
-                }
-                );
-                return SignupList;
-        }
-
-        public bool EditDetails(Signup signup)
-        {
-            Connection();
-            SqlCommand command = new SqlCommand("SPU_Signup", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.AddWithValue("@Id", signup.Id);
-            command.Parameters.AddWithValue("@firstName", signup.firstName);
-            command.Parameters.AddWithValue("@lastName", signup.lastName);
-            command.Parameters.AddWithValue("@dateOfBirth", signup.dateOfBirth);
-            command.Parameters.AddWithValue("@gender", signup.gender);
-            command.Parameters.AddWithValue("@email", signup.email);
-            command.Parameters.AddWithValue("phone", signup.phone);
-            command.Parameters.AddWithValue("@address", signup.address);
-            command.Parameters.AddWithValue("@city", signup.city);
-            command.Parameters.AddWithValue("@state", signup.state);
-            command.Parameters.AddWithValue("@pincode", signup.pincode);
-            command.Parameters.AddWithValue("@country", signup.country);
-            command.Parameters.AddWithValue("@username", signup.username);
-            command.Parameters.AddWithValue("@password", signup.password);
-
-
-            connection.Open();
-            int i = command.ExecuteNonQuery();
-            connection.Close();
-            if (i >= 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
-        public bool DeleteDetails(int Id)
-        {
-            Connection();
-            SqlCommand command = new SqlCommand("SPD_Signup", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.AddWithValue("Id",Id);
-
-            connection.Open();
-            int i = command.ExecuteNonQuery();
-            connection.Close();
-            if (i >= 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-
-
-
-    }
-}
-*/
-
-
+﻿
 using JobPortalManagementSystem.Models;
 using System;
 using System.Collections.Generic;
@@ -202,7 +43,7 @@ namespace JobPortalManagementSystem.Repository
         /// </summary>
         /// <param name="signup"></param>
         /// <returns></returns>
-     /*   public bool AddSignupDetails(Signup signup)
+       public bool AddSignupDetails(Signup signup)
         {
             Connection();
             SqlCommand command = new SqlCommand("SPI_Signup", connection);
@@ -219,12 +60,9 @@ namespace JobPortalManagementSystem.Repository
             command.Parameters.AddWithValue("@pincode", signup.pincode);
             command.Parameters.AddWithValue("@country", signup.country);
             command.Parameters.AddWithValue("@username", signup.username);
-            string hashedPassword = HashPassword(signup.password);
-            command.Parameters.AddWithValue("@password", hashedPassword);
+           // string hashedPassword = HashPassword(signup.password);
+            command.Parameters.AddWithValue("@password", signup.password);
 
-            command.Parameters.AddWithValue("@CountryId", signup.countryId);
-            command.Parameters.AddWithValue("@StateId", signup.stateId);
-            command.Parameters.AddWithValue("@CityId", signup.cityId);
             connection.Open();
             int i = command.ExecuteNonQuery();
             connection.Close();
@@ -236,7 +74,7 @@ namespace JobPortalManagementSystem.Repository
             {
                 return false;
             }
-        }*/
+        }
         /// <summary>
         /// Viewing the database signup record
         /// </summary>
@@ -270,6 +108,7 @@ namespace JobPortalManagementSystem.Repository
                         pincode = Convert.ToInt32(datarow["pincode"]),
                         country = Convert.ToString(datarow["country"]),
                         username = Convert.ToString(datarow["username"]),
+                        
                     }
                     );
             return SignupList;
@@ -336,27 +175,26 @@ namespace JobPortalManagementSystem.Repository
         }
 
 
-          // Method to validate user login credentials
-    public bool ValidateUser(string username, string password)
-    {
-        Connection();
-        SqlCommand command = new SqlCommand("SPS_ValidateUser", connection);
-        command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.AddWithValue("@username", username);
-        string hashedPassword = HashPassword(password);
-        command.Parameters.AddWithValue("@password", hashedPassword);
+    
+        public string GetUserRole(string username, string password)
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("Sp_ValidateUserAndGetRole", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@username", username);
+         //   string hashedPassword = HashPassword(password);
+            command.Parameters.AddWithValue("@password", password);
 
-        connection.Open();
-        int result = Convert.ToInt32(command.ExecuteScalar());
-        connection.Close();
+            connection.Open();
+            var role = command.ExecuteScalar() as string;
+            connection.Close();
 
-        return result > 0;
-
-    }
-
+            return role;
+        }
 
 
-        string connectionString = ConfigurationManager.ConnectionStrings["GetDataBaseConnection"].ToString();
+
+
 
         /*
                 public List<Country> GetCountries()
@@ -452,140 +290,6 @@ namespace JobPortalManagementSystem.Repository
 
                 */
 
-
-            public bool AddSignupDetails(Signup signup)
-            {
-                try
-                {
-                    Connection();
-                    SqlCommand command = new SqlCommand("SPI_Signup", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@firstName", signup.firstName);
-                    command.Parameters.AddWithValue("@lastName", signup.lastName);
-                    command.Parameters.AddWithValue("@dateOfBirth", signup.dateOfBirth);
-                    command.Parameters.AddWithValue("@gender", signup.gender);
-                    command.Parameters.AddWithValue("@email", signup.email);
-                    command.Parameters.AddWithValue("@phone", signup.phone);
-                    command.Parameters.AddWithValue("@address", signup.address);
-                    command.Parameters.AddWithValue("@city", signup.city);
-                    command.Parameters.AddWithValue("@state", signup.state);
-                    command.Parameters.AddWithValue("@pincode", signup.pincode);
-                    command.Parameters.AddWithValue("@country", signup.country);
-                    command.Parameters.AddWithValue("@username", signup.username);
-                    string hashedPassword = HashPassword(signup.password);
-                    command.Parameters.AddWithValue("@password", hashedPassword);
-
-                    command.Parameters.AddWithValue("@countryId", signup.countryId);
-                    command.Parameters.AddWithValue("@stateId", signup.stateId);
-                    command.Parameters.AddWithValue("@cityId", signup.cityId);
-                    connection.Open();
-                    int i = command.ExecuteNonQuery();
-                    connection.Close();
-                    return i > 0;
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it appropriately.
-                    // For example, you can throw a custom exception or return false.
-                    return false;
-                }
             }
-
-            // ... (other methods)
-
-            public List<Country> GetCountries()
-            {
-                try
-                {
-                    var countries = new List<Country>();
-                    Connection();
-                    SqlCommand command = new SqlCommand("SELECT * FROM Table_Countries", connection);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            countries.Add(new Country
-                            {
-                                countryId = Convert.ToInt32(reader["countryId"]),
-                                countryName = Convert.ToString(reader["countryName"])
-                            });
-                        }
-                    }
-                    connection.Close();
-                    return countries;
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it appropriately.
-                    // For example, you can throw a custom exception or return an empty list.
-                    return new List<Country>();
-                }
-            }
-
-            public List<State> GetStatesByCountry(int countryId)
-            {
-                try
-                {
-                    var states = new List<State>();
-                    Connection();
-                    SqlCommand command = new SqlCommand("SELECT * FROM Table_States WHERE countryId = @countryId", connection);
-                    command.Parameters.AddWithValue("@countryId", countryId);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            states.Add(new State
-                            {
-                                stateId = Convert.ToInt32(reader["stateId"]),
-                                stateName = Convert.ToString(reader["stateName"]),
-                                countryId = Convert.ToInt32(reader["countryId"])
-                            });
-                        }
-                    }
-                    connection.Close();
-                    return states;
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it appropriately.
-                    // For example, you can throw a custom exception or return an empty list.
-                    return new List<State>();
-                }
-            }
-
-            public List<City> GetCitiesByState(int stateId)
-            {
-                try
-                {
-                    var cities = new List<City>();
-                    Connection();
-                    SqlCommand command = new SqlCommand("SELECT * FROM Table_Cities WHERE stateId = @stateId", connection);
-                    command.Parameters.AddWithValue("@stateId", stateId);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cities.Add(new City
-                            {
-                                cityId = Convert.ToInt32(reader["cityId"]),
-                                cityName = Convert.ToString(reader["cityName"]),
-                                stateId = Convert.ToInt32(reader["stateId"])
-                            });
-                        }
-                    }
-                    connection.Close();
-                    return cities;
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it appropriately.
-                    // For example, you can throw a custom exception or return an empty list.
-                    return new List<City>();
-                }
-            }
-        }
     }
 

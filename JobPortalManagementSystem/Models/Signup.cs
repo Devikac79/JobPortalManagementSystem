@@ -76,7 +76,8 @@ namespace JobPortalManagementSystem.Models
         public string confirmPassword { get; set; }
     }
 
-}*/
+}
+*/
 
 using System;
 using System.Collections.Generic;
@@ -131,12 +132,10 @@ namespace JobPortalManagementSystem.Models
         [Required(ErrorMessage = "Re-enter the password")]
         [DisplayName("Confirm password")]
         public string confirmPassword { get; set; }
+        public string Role { get; set; }
 
 
-        public int countryId { get; set; }
-        public int stateId { get; set; }
-        public int cityId { get;set; }
 
     }
-  
+
 }
