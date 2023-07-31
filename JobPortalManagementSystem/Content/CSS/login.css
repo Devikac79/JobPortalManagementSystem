@@ -1,0 +1,23 @@
+﻿
+
+/* styles.css */
+.container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* This ensures the container takes up the full viewport height */
+}
+
+
+/* Optional: If you want to add some space between the form and other elements */
+.form-container1 {
+    margin-top: 20px;
+}
+
+h2{
+    text-align:center;
+    margin-top:20px;
+}
+.form-control{
+    margin-top:10px;
+}

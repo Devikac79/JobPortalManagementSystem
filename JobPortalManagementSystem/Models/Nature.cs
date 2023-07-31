@@ -5,9 +5,9 @@ using System.Web;
 
 namespace JobPortalManagementSystem.Models
 {
-    public class Category
+    public class Nature
     {
-        public int JobCategoryId { get; set; }
-        public string category{ get; set; }
+        public int JobNatureId { get; set; }
+        public string JobNature { get; set; }
     }
 }

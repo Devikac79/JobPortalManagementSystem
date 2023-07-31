@@ -127,14 +127,13 @@ namespace JobPortalManagementSystem.Controllers
                 {
                     ViewBag.AlertMessage("User details deleted successfully");
                 }
-                return RedirectToAction("GetSignupDetails");
+                return RedirectToAction("GetDetails");
             }
             catch
             {
                 return View();
             }
         }
-
 
 
 
@@ -199,6 +198,41 @@ namespace JobPortalManagementSystem.Controllers
         {
             return View();
         }
+        public ActionResult GetContact()
+        {
+            ContactRepository contactRepository = new ContactRepository();
+            ModelState.Clear();
+            return View(contactRepository.GetContact());
+        }
+        public ActionResult AddContact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddContact(Contact contact)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ContactRepository signupRepository = new ContactRepository();
+                    if (signupRepository.AddContact(contact))
+                    {
+                        ViewBag.Message = "User Details Added Successfully";
+
+                    }
+                }
+                return RedirectToAction("Homepage");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+       
 
 
     }

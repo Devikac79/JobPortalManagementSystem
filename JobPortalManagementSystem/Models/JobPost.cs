@@ -11,6 +11,7 @@ namespace JobPortalManagementSystem.Models
 
     public class JobPost
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -24,12 +25,7 @@ namespace JobPortalManagementSystem.Models
 
         public int maxSalary { get; set; }
 
-        [Required]
-        public int JobCategoryId { get; set; }
-
-        [Required]
-        public int JobNatureId { get; set; }
-
+      
         [Required]
         [DataType(DataType.Date)]
         public DateTime postDate { get; set; }
@@ -37,8 +33,16 @@ namespace JobPortalManagementSystem.Models
         [DataType(DataType.Date)]
         public DateTime endDate { get; set; }
 
-        [StringLength(100)]
+        
         public string description { get; set; }
+
+        [Required]
+
+        public string jobCategory { get; set; }
+
+        [Required]
+        public string jobNature { get; set; }
+
     }
 
 

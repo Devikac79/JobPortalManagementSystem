@@ -173,9 +173,6 @@ namespace JobPortalManagementSystem.Repository
                 return false;
             }
         }
-
-
-    
         public string GetUserRole(string username, string password)
         {
             Connection();

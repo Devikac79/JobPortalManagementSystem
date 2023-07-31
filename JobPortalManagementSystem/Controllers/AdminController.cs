@@ -1,8 +1,11 @@
-﻿using JobPortalManagementSystem.Models;
+﻿
+using JobPortalManagementSystem.Models;
 using JobPortalManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,6 +13,13 @@ namespace JobPortalManagementSystem.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly JobPostRepository repository;
+
+        public AdminController()
+        {
+            repository = new JobPostRepository();
+        }
+
         // GET: Admin
         public ActionResult AdminHomepage()
         {
@@ -23,23 +33,20 @@ namespace JobPortalManagementSystem.Controllers
 
         public ActionResult GetJobPostDetails()
         {
-            JobPostRepository jobPostRepository = new JobPostRepository();
-            ModelState.Clear();
-            return View(jobPostRepository.GetJobPostDetails());
+             ModelState.Clear();
+            return View(repository.GetJobPostDetails());
         }
-        /// <summary>
-        /// Get method to view Creating  a record
-        /// </summary>
-        /// <returns></returns>
+
+     
+
+
+
         public ActionResult AddJobPost()
         {
+
             return View();
         }
-        /// <summary>
-        /// Post method to assign created value to database
-        /// </summary>
-        /// <param name="signup"></param>
-        /// <returns></returns>
+
         [HttpPost]
         public ActionResult AddJobPost(JobPost jobPost)
         {
@@ -51,8 +58,8 @@ namespace JobPortalManagementSystem.Controllers
                     JobPostRepository jobPostRepository = new JobPostRepository();
                     if (jobPostRepository.AddJobPost(jobPost))
                     {
-                        ViewBag.Message ="Job post added Successful";
-                        return RedirectToAction("GetJobPostDetails"); // Redirect to login page after successful registration
+                        ViewBag.Message = "job posted Successful";
+                        return RedirectToAction("AdminHomepage"); // Redirect to login page after successful registration
                     }
                 }
                 return View(jobPost);
@@ -61,7 +68,8 @@ namespace JobPortalManagementSystem.Controllers
             {
                 return View();
             }
-        }
 
+        }
     }
 }
+
